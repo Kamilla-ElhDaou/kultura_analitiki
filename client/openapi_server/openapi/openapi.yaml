@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  description: API для управления авторами и их книгами
+  title: Swagger Demo
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /author:
+    post:
+      operationId: author_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_author_post_request"
+        required: true
+        x-body-name: body
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_author__author_id__get_200_response"
+          description: Создано
+        "400":
+          description: Автор уже существует
+      summary: Создание автора
+      tags:
+      - Author
+      x-openapi-router-controller: openapi_server.controllers.author_controller
+      x-codegen-request-body-name: body
+  /author/{author_id}:
+    get:
+      operationId: author_author_id_get
+      parameters:
+      - description: id автора
+        explode: false
+        in: path
+        name: author_id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_author__author_id__get_200_response"
+          description: Успешно
+        "404":
+          description: Автор не найден
+      summary: Информация о конкретном авторе
+      tags:
+      - Author
+      x-openapi-router-controller: openapi_server.controllers.author_controller
+  /book:
+    post:
+      operationId: book_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_book_post_request"
+        required: true
+        x-body-name: body
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_book__book_id__get_200_response"
+          description: Создано
+        "400":
+          description: Автор книги не найден
+      summary: Создание книги
+      tags:
+      - Books
+      x-openapi-router-controller: openapi_server.controllers.books_controller
+      x-codegen-request-body-name: body
+  /book/{book_id}:
+    get:
+      operationId: book_book_id_get
+      parameters:
+      - description: id книги
+        explode: false
+        in: path
+        name: book_id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/_book__book_id__get_200_response"
+          description: Успешно
+        "404":
+          description: Книга не найдена
+      summary: Информация о конкретной книги
+      tags:
+      - Books
+      x-openapi-router-controller: openapi_server.controllers.books_controller
+components:
+  schemas:
+    _author__author_id__get_200_response_author:
+      example:
+        books:
+        - books
+        - books
+        last_name: last_name
+        first_name: first_name
+      properties:
+        first_name:
+          title: first_name
+          type: string
+        last_name:
+          title: last_name
+          type: string
+        books:
+          items:
+            type: string
+          title: books
+          type: array
+      title: _author__author_id__get_200_response_author
+      type: object
+    _book__book_id__get_200_response_book:
+      example:
+        author: author
+        id: 0
+        title: title
+      properties:
+        id:
+          title: id
+          type: integer
+        title:
+          title: title
+          type: string
+        author:
+          title: author
+          type: string
+      title: _book__book_id__get_200_response_book
+      type: object
+    _book__book_id__get_200_response:
+      example:
+        book:
+          author: author
+          id: 0
+          title: title
+      properties:
+        book:
+          $ref: "#/components/schemas/_book__book_id__get_200_response_book"
+      title: _book__book_id__get_200_response
+      type: object
+    _book_post_request:
+      properties:
+        title:
+          title: title
+          type: string
+        author:
+          title: author
+          type: integer
+      required:
+      - author_id
+      - title
+      title: _book_post_request
+      type: object
+    _author__author_id__get_200_response:
+      example:
+        author:
+          books:
+          - books
+          - books
+          last_name: last_name
+          first_name: first_name
+      properties:
+        author:
+          $ref: "#/components/schemas/_author__author_id__get_200_response_author"
+      title: _author__author_id__get_200_response
+      type: object
+    _author_post_request:
+      properties:
+        first_name:
+          title: first_name
+          type: string
+        last_name:
+          title: last_name
+          type: string
+      required:
+      - first_name
+      - last_name
+      title: _author_post_request
+      type: object

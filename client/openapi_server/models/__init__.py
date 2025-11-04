@@ -1,0 +1,9 @@
+# coding: utf-8
+
+# import models into model package
+from openapi_server.models.author_author_id_get200_response import AuthorAuthorIdGet200Response
+from openapi_server.models.author_author_id_get200_response_author import AuthorAuthorIdGet200ResponseAuthor
+from openapi_server.models.author_post_request import AuthorPostRequest
+from openapi_server.models.book_book_id_get200_response import BookBookIdGet200Response
+from openapi_server.models.book_book_id_get200_response_book import BookBookIdGet200ResponseBook
+from openapi_server.models.book_post_request import BookPostRequest
